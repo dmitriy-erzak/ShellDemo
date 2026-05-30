@@ -1,4 +1,4 @@
-#CXX = g++
+CXX = g++
 CPPFLAGS = -Wall -ggdb
 
 MAIN = test
@@ -7,21 +7,17 @@ OBJ = $(MAIN).o HStack.o
 $(MAIN).exe: $(OBJ)
 	$(CXX) $(CPPFLAGS) $(OBJ) -o $(MAIN).exe
 
-$%.o: $%.cpp
+%.o: %.cpp
+	$(CXX) $(CPPFLAGS) -c $< -o $@
 
-#$(MAIN).o: $(MAIN).cpp
-#	$(CXX) $(CPPFLAGS) -c $(MAIN).cpp
-
-#HStack.o: HStack.cpp
-#	$(CXX) $(CPPFLAGS) -c HStack.cpp
-
-$(OBJ):HStack.hpp
+$(OBJ): HStack.hpp
 
 run:
 	./$(MAIN).exe
 
 clean:
-	RM *.o *.exe
+	rm *.o *.exe
+
 all: $(MAIN).exe run clean
 
-PHONY: all clean
+.PHONY: all clean
